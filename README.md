@@ -45,12 +45,6 @@ Throughout the backtest, we enforce realistic portfolio constraints, including a
 - `Markowitz_LedoitWolf_D_min.ipynb`  
   Markowitz with Ledoit–Wolf and diversification constraint (`D_min`).
 
-### Data
-The notebooks expect a CSV named `_data.csv` with:
-- One row per day
-- A `date` column
-- One column per asset price (20 assets)
-
 
 ### Report
 - [Portfolio_optimization.pdf](./report.pdf)
