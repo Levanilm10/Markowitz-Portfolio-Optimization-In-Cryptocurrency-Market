@@ -1,58 +1,49 @@
 # Portfolio-Optimization-In-Cryptocurrency-Market
-This project investigates systematic portfolio construction in the cryptocurrency market using constrained mean–variance optimization.# Portfolio Optimization in Cryptocurrency Markets
+This project investigates systematic portfolio construction in the cryptocurrency market using constrained mean–variance optimization with a realistic risk controls and robustness improvements. 
 
-Systematic portfolio construction in crypto using **constrained mean–variance (Markowitz) optimization** with a **risk-free cash allocation**, realistic risk controls, and robustness improvements.
+The backtest is conducted over the period from January 2022 to January 2024.   
+The investment universe consists of 20 liquid crypto-assets plus a cash position.  
+Portfolio optimization is solved in CVXPY.
 
-> Backtest window: **Jan 2022 → Jan 2024**  
-> Universe: **20 liquid crypto-assets + cash**  
-> Optimization: **CVXPY (ECOS/SCS)**
 
 ---
 
 ## Project overview
 
-Crypto portfolios are challenging because returns/covariances are noisy and correlations can spike. This project:
-- Benchmarks simple strategies (**Bitcoin-only**, **equal-weighted**)
-- Implements **constrained Markowitz rebalancing** (rolling estimates)
+This project:
+- Benchmarks simple strategies (Bitcoin-only, equal-weighted)
+- Implements constrained Markowitz rebalancing
 - Adds robustness layers to stabilize allocations:
-  - Per-asset concentration cap (`w_max`)
-  - Transaction fees (proportional costs)
-  - Covariance shrinkage (**Ledoit–Wolf**)
-  - Convex **SOC diversification constraint** (`D_min`)
+  - Per-asset concentration cap
+  - Transaction fees
+  - Ledoit–Wolf Covariance shrinkage
+  - diversification constraint
 
 ---
 
 ## Risk controls implemented
 
-Throughout the backtest we consider realistic constraints such as:
-- **Long-only** (no shorting)
-- **Volatility cap** (annualized)
-- **Diversification / concentration control** (via a diversification metric and/or SOC constraint)
-- **Fee-cost budget** over the whole backtest (transaction costs)
-
-Full definitions and metrics (Sharpe, max drawdown, diversification metric, etc.) are detailed in the report.
+Throughout the backtest, we enforce realistic portfolio constraints, including a long-only allocation, an annualized volatility cap, and a global transaction-cost budget applied over the entire backtest horizon. Full definitions of these constraints, as well as all performance metrics (Sharpe ratio, maximum drawdown, diversification metric, etc.), are provided in the report.
 
 ---
 
 ## Repository contents
 
-### Notebooks (recommended run order)
-- `0_Data_study.ipynb`  
-  Data inspection + plots (returns / correlations).
-- `1_Benchmark-bitcoin.ipynb`  
-  Bitcoin-only benchmark + performance metrics.
-- `1_Benchmark-equal_weights.ipynb`  
-  Equal-weight benchmark + performance metrics.
-- `2_i_Markowitz_without_x_max.ipynb`  
-  Baseline constrained Markowitz (volatility-capped) without concentration cap.
-- `2_ii_Markowitz_x_max_only.ipynb`  
-  Markowitz + per-asset cap `w_max`.
-- `2_iii_Markowitz_LedoitWolf.ipynb`  
-  Markowitz + Ledoit–Wolf covariance shrinkage.
-- `2_iv_Markowitz_LedoitWolf_D_min.ipynb`  
-  Markowitz + Ledoit–Wolf + SOC diversification constraint (`D_min`).
-- `main_not_really_useful.ipynb`  
-  Extra/legacy notebook (can be moved to `drafts/`).
+### Notebooks
+- `Data_study.ipynb`  
+  Data inspection.
+- `Benchmark-bitcoin.ipynb`  
+  Bitcoin-only benchmark.
+- `Benchmark-equal_weights.ipynb`  
+  Equal-weight benchmark.
+- `Markowitz_without_x_max.ipynb`  
+  Baseline constrained Markowitz.
+- `Markowitz_x_max_only.ipynb`  
+  Markowitz with per-asset cap `w_max`.
+- `Markowitz_LedoitWolf.ipynb`  
+  Markowitz with Ledoit–Wolf covariance shrinkage.
+- `Markowitz_LedoitWolf_D_min.ipynb`  
+  Markowitz with Ledoit–Wolf and diversification constraint (`D_min`).
 
 ### Data
 The notebooks expect a CSV named `_data.csv` with:
@@ -61,9 +52,8 @@ The notebooks expect a CSV named `_data.csv` with:
 - One column per asset price (20 assets)
 
 
-
 ### Report
-- `Portfolio_optimization.pdf` 
+- [Portfolio_optimization.pdf](./report.pdf)
 
 
 
